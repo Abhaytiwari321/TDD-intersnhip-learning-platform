@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useAuth } from '../context/AuthContext';
-import AdminStats from '../components/admin/AdminStats';
-import UserManagement from '../components/admin/UserManagement';
-import CourseManagement from '../components/admin/CourseManagement';
-import AdminSettings from '../components/admin/AdminSettings';
+import { useAuth } from '../../context/AuthContext';
+import AdminStats from '../../components/admin/AdminStats';
+import UserManagement from '../../components/admin/UserManagement';
+import CourseManagement from '../../components/admin/CourseManagement';
+import AdminSettings from '../../components/admin/AdminSettings';
 
 const AdminDashboard = () => {
     const [users, setUsers] = useState([]);

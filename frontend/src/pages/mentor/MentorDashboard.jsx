@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useAuth } from '../context/AuthContext';
-import CreateCourseModal from '../components/mentor/CreateCourseModal';
-import { MentorStats, CourseGrid } from '../components/mentor/MentorDashboardComponents';
+import { useAuth } from '../../context/AuthContext';
+import CreateCourseModal from '../../components/mentor/CreateCourseModal';
+import { MentorStats, CourseGrid } from '../../components/mentor/MentorDashboardComponents';
 
 const MentorDashboard = () => {
     const [courses, setCourses] = useState([]);

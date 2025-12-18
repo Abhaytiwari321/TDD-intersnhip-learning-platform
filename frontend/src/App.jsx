@@ -5,11 +5,11 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import ProtectedRoute from './components/ProtectedRoute';
 
-import AdminDashboard from './pages/AdminDashboard';
-import MentorDashboard from './pages/MentorDashboard';
-import CourseManager from './pages/CourseManager';
-import StudentDashboard from './pages/StudentDashboard';
-import CourseViewer from './pages/CourseViewer';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import MentorDashboard from './pages/mentor/MentorDashboard';
+import CourseManager from './pages/mentor/CourseManager';
+import StudentDashboard from './pages/student/StudentDashboard';
+import CourseViewer from './pages/student/CourseViewer';
 const Home = () => {
   const { user } = useAuth();
   if (user) {

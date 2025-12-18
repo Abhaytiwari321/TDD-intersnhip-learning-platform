@@ -27,14 +27,14 @@ const StudentDashboard = () => {
         <div className="min-h-screen bg-gray-50">
             {/* Header */}
             <div className="bg-white shadow-sm border-b border-gray-200 mb-8">
-                <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+                <div className="container mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <div className="flex items-center gap-3">
                         <div className="bg-indigo-600 p-2 rounded-lg">
                             <span className="text-2xl">🎓</span>
                         </div>
                         <h1 className="text-2xl font-bold text-gray-800 tracking-tight">My<span className="text-indigo-600">Learning</span></h1>
                     </div>
-                    <div className="text-gray-600 font-medium">
+                    <div className="text-gray-600 font-medium self-end sm:self-auto">
                         Welcome, Student {user?.name ? user.name.split(' ')[0] : ''}
                     </div>
                 </div>

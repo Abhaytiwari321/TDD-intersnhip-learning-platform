@@ -156,7 +156,7 @@ const CourseManager = () => {
                 {/* Chapters Tab */}
                 {activeTab === 'chapters' && (
                     <div className="animate-fade-in">
-                        <div className="flex justify-between items-center mb-6">
+                        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                             <h2 className="text-lg font-semibold text-gray-800">Course Content</h2>
                             <button
                                 onClick={() => {
@@ -164,7 +164,7 @@ const CourseManager = () => {
                                     setNewChapter({ title: '', description: '', videoUrl: '', sequenceOrder: chapters.length + 1 });
                                     setIsChapterFormOpen(true);
                                 }}
-                                className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition flex items-center gap-2 text-sm"
+                                className="w-full sm:w-auto bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition flex items-center justify-center gap-2 text-sm"
                             >
                                 + Add Chapter
                             </button>
@@ -203,17 +203,17 @@ const CourseManager = () => {
 
                         <div className="space-y-3">
                             {chapters.map((chapter) => (
-                                <div key={chapter._id} className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition flex justify-between items-center group">
-                                    <div className="flex items-center gap-4">
-                                        <div className="h-10 w-10 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center font-bold text-lg">
+                                <div key={chapter._id} className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 group">
+                                    <div className="flex items-center gap-4 w-full sm:flex-1 overflow-hidden">
+                                        <div className="flex-shrink-0 h-10 w-10 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center font-bold text-lg">
                                             {chapter.sequenceOrder}
                                         </div>
-                                        <div>
-                                            <h4 className="font-semibold text-gray-900">{chapter.title}</h4>
-                                            <p className="text-sm text-gray-500 truncate max-w-md">{chapter.description || 'No description'}</p>
+                                        <div className="min-w-0 flex-1">
+                                            <h4 className="font-semibold text-gray-900 truncate">{chapter.title}</h4>
+                                            <p className="text-sm text-gray-500 truncate">{chapter.description || 'No description'}</p>
                                         </div>
                                     </div>
-                                    <div className="flex items-center gap-3">
+                                    <div className="flex items-center bg-gray-50 sm:bg-transparent p-2 sm:p-0 rounded-lg w-full sm:w-auto justify-end gap-3 mt-2 sm:mt-0">
                                         <button onClick={() => startEditing(chapter)} className="text-gray-400 hover:text-indigo-600 p-2"><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg></button>
                                         <button onClick={() => deleteChapter(chapter._id)} className="text-gray-400 hover:text-red-600 p-2"><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
                                     </div>
@@ -233,54 +233,58 @@ const CourseManager = () => {
                     <div className="animate-fade-in max-w-4xl">
                         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 mb-8">
                             <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wide mb-4">Quick Enroll</h3>
-                            <form onSubmit={assignStudent} className="flex gap-4">
+                            <form onSubmit={assignStudent} className="flex flex-col sm:flex-row gap-4">
                                 <input
                                     type="email"
                                     placeholder="Enter student email..."
-                                    className="flex-grow border border-gray-300 rounded-lg px-4 focus:ring-2 focus:ring-indigo-500 outline-none"
+                                    className="w-full sm:flex-grow border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none"
                                     value={studentEmailToAssign}
                                     onChange={e => setStudentEmailToAssign(e.target.value)}
                                     required
                                 />
-                                <button type="submit" className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition">Assign</button>
+                                <button type="submit" className="w-full sm:w-auto bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition font-medium">Assign</button>
                             </form>
                         </div>
 
                         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                            <table className="min-w-full">
-                                <thead className="bg-gray-50 border-b border-gray-200">
+                            <table className="min-w-full block md:table">
+                                <thead className="hidden md:table-header-group bg-gray-50 border-b border-gray-200">
                                     <tr>
                                         <th className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase">Student</th>
                                         <th className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase">Progress</th>
                                         <th className="py-3 px-6 text-right text-xs font-medium text-gray-500 uppercase">Status</th>
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y divide-gray-100">
+                                <tbody className="block md:table-row-group divide-y divide-gray-100">
                                     {enrolledStudents.map(student => (
-                                        <tr key={student._id}>
-                                            <td className="py-4 px-6">
+                                        <tr key={student._id} className="block md:table-row p-4 md:p-0 hover:bg-gray-50 transition-colors">
+                                            <td className="block md:table-cell py-2 md:py-4 px-0 md:px-6">
                                                 <div className="font-medium text-gray-900">{student.name}</div>
-                                                <div className="text-sm text-gray-500">{student.email}</div>
+                                                <div className="text-sm text-gray-500 break-all">{student.email}</div>
                                             </td>
-                                            <td className="py-4 px-6">
-                                                <div className="w-full max-w-xs">
-                                                    <div className="flex justify-between text-xs mb-1">
+                                            <td className="block md:table-cell py-2 md:py-4 px-0 md:px-6">
+                                                <span className="md:hidden text-xs font-bold text-gray-500 uppercase block mb-1">Progress</span>
+                                                <div className="w-full md:max-w-xs">
+                                                    <div className="flex justify-between text-xs mb-1 text-gray-600">
                                                         <span>{student.progress}%</span>
                                                         <span>{student.completedChapters}/{student.totalChapters} Ch</span>
                                                     </div>
                                                     <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-                                                        <div className="h-full bg-green-500 rounded-full" style={{ width: `${student.progress}%` }}></div>
+                                                        <div className="h-full bg-green-500 rounded-full transition-all duration-500" style={{ width: `${student.progress}%` }}></div>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td className="py-4 px-6 text-right">
-                                                <span className="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Enrolled</span>
+                                            <td className="block md:table-cell py-2 md:py-4 px-0 md:px-6 text-left md:text-right">
+                                                <div className="flex justify-between items-center md:block">
+                                                    <span className="md:hidden text-xs font-bold text-gray-500 uppercase">Status</span>
+                                                    <span className="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Enrolled</span>
+                                                </div>
                                             </td>
                                         </tr>
                                     ))}
                                     {enrolledStudents.length === 0 && (
-                                        <tr>
-                                            <td colSpan="3" className="py-8 text-center text-gray-500">No students enrolled yet.</td>
+                                        <tr className="block md:table-row">
+                                            <td colSpan="3" className="py-8 px-6 text-center text-gray-500 block md:table-cell">No students enrolled yet.</td>
                                         </tr>
                                     )}
                                 </tbody>

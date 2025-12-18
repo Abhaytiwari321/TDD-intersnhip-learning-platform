@@ -10,6 +10,7 @@ const {
     getChapters,
     getStudentCourses,
     updateChapter,
+    deleteChapter,
     getEnrolledStudents,
     getAllCourses,
 } = require('../controllers/courseController');
@@ -37,7 +38,8 @@ router.route('/:id/chapters')
     .get(protect, getChapters);
 
 router.route('/:id/chapters/:chapterId')
-    .put(protect, authorize('mentor'), updateChapter);
+    .put(protect, authorize('mentor'), updateChapter)
+    .delete(protect, authorize('mentor'), deleteChapter);
 
 router.route('/:id/students')
     .get(protect, authorize('mentor', 'admin'), getEnrolledStudents);

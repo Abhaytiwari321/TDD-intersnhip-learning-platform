@@ -12,6 +12,7 @@ const CourseViewer = () => {
     const [currentChapter, setCurrentChapter] = useState(null);
     const [loading, setLoading] = useState(true);
     const [showCelebration, setShowCelebration] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Mobile sidebar toggle
 
     const isCourseCompleted = chapters.length > 0 && progress.completedChapters.length === chapters.length;
 
@@ -129,24 +130,37 @@ const CourseViewer = () => {
 
     return (
         <div className="flex h-[calc(100vh-64px)] bg-gray-50 font-sans">
-            {/* Dark Sidebar */}
-            <div className="w-96 bg-gray-900 text-white flex flex-col shadow-2xl z-10">
-                <div className="p-6 border-b border-gray-800 bg-gray-900">
-                    <h2 className="text-xl font-bold tracking-tight text-white/90">Course Content</h2>
-
-                    {/* Progress Bar in Sidebar */}
-                    <div className="mt-4">
-                        <div className="flex justify-between text-xs text-gray-400 mb-2 font-medium">
-                            <span>Your Progress</span>
-                            <span>{chapters.length > 0 ? Math.round((progress.completedChapters.length / chapters.length) * 100) : 0}%</span>
-                        </div>
-                        <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
-                            <div
-                                className="bg-indigo-500 h-2 rounded-full transition-all duration-700 ease-out shadow-[0_0_10px_rgba(99,102,241,0.5)]"
-                                style={{ width: `${chapters.length > 0 ? Math.round((progress.completedChapters.length / chapters.length) * 100) : 0}%` }}
-                            ></div>
+            {/* Sidebar - Mobile: Fixed overlay, Desktop: Static width */}
+            <div className={`
+                transition-all duration-300 ease-in-out bg-gray-900 text-white flex flex-col shadow-2xl z-40
+                fixed inset-0 w-full md:static md:w-96 md:flex
+                ${isSidebarOpen ? 'flex' : 'hidden'}
+            `}>
+                <div className="p-6 border-b border-gray-800 bg-gray-900 flex justify-between items-center">
+                    <div>
+                        <h2 className="text-xl font-bold tracking-tight text-white/90">Course Content</h2>
+                        <div className="mt-4">
+                            <div className="flex justify-between text-xs text-gray-400 mb-2 font-medium">
+                                <span>Your Progress</span>
+                                <span>{chapters.length > 0 ? Math.round((progress.completedChapters.length / chapters.length) * 100) : 0}%</span>
+                            </div>
+                            <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
+                                <div
+                                    className="bg-indigo-500 h-2 rounded-full transition-all duration-700 ease-out shadow-[0_0_10px_rgba(99,102,241,0.5)]"
+                                    style={{ width: `${chapters.length > 0 ? Math.round((progress.completedChapters.length / chapters.length) * 100) : 0}%` }}
+                                ></div>
+                            </div>
                         </div>
                     </div>
+                    {/* Mobile Close Button */}
+                    <button
+                        onClick={() => setIsSidebarOpen(false)}
+                        className="md:hidden text-gray-400 hover:text-white p-2"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
                 </div>
 
                 <div className="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-2">
@@ -158,7 +172,12 @@ const CourseViewer = () => {
                         return (
                             <div
                                 key={chapter._id}
-                                onClick={() => !locked && setCurrentChapter(chapter)}
+                                onClick={() => {
+                                    if (!locked) {
+                                        setCurrentChapter(chapter);
+                                        setIsSidebarOpen(false); // Close sidebar on mobile on selection
+                                    }
+                                }}
                                 className={`
                                     p-4 rounded-xl transition-all duration-200 border-l-4 group relative overflow-hidden
                                     ${isActive
@@ -223,6 +242,15 @@ const CourseViewer = () => {
                         {/* Header */}
                         <div className="mb-8">
                             <div className="flex items-center gap-2 text-sm text-indigo-600 font-bold tracking-wide uppercase mb-2">
+                                {/* Mobile Sidebar Toggle */}
+                                <button
+                                    onClick={() => setIsSidebarOpen(true)}
+                                    className="md:hidden mr-2 p-1 bg-indigo-100 rounded hover:bg-indigo-200 text-indigo-700"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
+                                    </svg>
+                                </button>
                                 <span>Chapter {chapters.findIndex(c => c._id === currentChapter._id) + 1}</span>
                                 <span>•</span>
                                 <span>Video Lesson</span>

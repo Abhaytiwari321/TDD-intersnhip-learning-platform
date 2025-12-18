@@ -59,7 +59,7 @@ const MentorDashboard = () => {
         <div className="min-h-screen bg-gray-50">
             {/* Top Bar */}
             <div className="bg-white shadow-sm border-b border-gray-200">
-                <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+                <div className="container mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
                     <div className="flex items-center gap-3">
                         <div className="bg-indigo-600 p-2 rounded-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">

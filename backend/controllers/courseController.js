@@ -257,6 +257,29 @@ const getEnrolledStudents = async (req, res) => {
     }
 };
 
+// @desc    Delete chapter
+// @route   DELETE /api/courses/:id/chapters/:chapterId
+// @access  Private/Mentor
+const deleteChapter = async (req, res) => {
+    const course = await Course.findById(req.params.id);
+
+    if (course) {
+        if (course.mentor.toString() !== req.user._id.toString()) {
+            return res.status(401).json({ message: 'Not authorized' });
+        }
+
+        const chapter = await Chapter.findById(req.params.chapterId);
+        if (chapter) {
+            await chapter.deleteOne();
+            res.json({ message: 'Chapter removed' });
+        } else {
+            res.status(404).json({ message: 'Chapter not found' });
+        }
+    } else {
+        res.status(404).json({ message: 'Course not found' });
+    }
+};
+
 module.exports = {
     createCourse,
     getMyCourses,
@@ -267,6 +290,7 @@ module.exports = {
     getChapters,
     getStudentCourses,
     updateChapter,
+    deleteChapter,
     getEnrolledStudents,
     getAllCourses,
 };

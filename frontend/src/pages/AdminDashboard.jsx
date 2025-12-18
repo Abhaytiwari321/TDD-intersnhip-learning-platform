@@ -88,31 +88,33 @@ const AdminDashboard = () => {
     return (
         <div className="min-h-screen bg-gray-50">
             {/* Top Navigation Bar */}
-            <div className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-10">
-                <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-                    <div className="flex items-center gap-3">
-                        <div className="bg-indigo-600 p-2 rounded-lg">
+            <div className="bg-white shadow-sm border-b border-gray-200 sticky top-16 md:top-0 z-10">
+                <div className="container mx-auto px-4 sm:px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div className="flex items-center gap-3 w-full md:w-auto">
+                        <div className="bg-indigo-600 p-2 rounded-lg shrink-0">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                             </svg>
                         </div>
-                        <h1 className="text-2xl font-bold text-gray-800 tracking-tight">Admin<span className="text-indigo-600">Portal</span></h1>
+                        <h1 className="text-xl md:text-2xl font-bold text-gray-800 tracking-tight">Admin<span className="text-indigo-600">Portal</span></h1>
                     </div>
 
-                    <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg">
-                        {['overview', 'users', 'courses', 'settings'].map((tab) => (
-                            <button
-                                key={tab}
-                                onClick={() => setActiveTab(tab)}
-                                className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 capitalize
+                    <div className="w-full md:w-auto overflow-x-auto pb-2 md:pb-0">
+                        <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg w-max md:w-auto mx-auto md:mx-0">
+                            {['overview', 'users', 'courses', 'settings'].map((tab) => (
+                                <button
+                                    key={tab}
+                                    onClick={() => setActiveTab(tab)}
+                                    className={`px-3 md:px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 capitalize whitespace-nowrap
                                     ${activeTab === tab
-                                        ? 'bg-white text-indigo-600 shadow-sm'
-                                        : 'text-gray-500 hover:text-gray-900'}`
-                                }
-                            >
-                                {tab}
-                            </button>
-                        ))}
+                                            ? 'bg-white text-indigo-600 shadow-sm'
+                                            : 'text-gray-500 hover:text-gray-900'}`
+                                    }
+                                >
+                                    {tab}
+                                </button>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -3,12 +3,7 @@ const Chapter = require('../models/Chapter');
 const User = require('../models/User');
 const Progress = require('../models/Progress');
 
-// @desc    Create a new course
-// @route   POST /api/courses
-// @access  Private/Mentor
-// @desc    Create a new course
-// @route   POST /api/courses
-// @access  Private/Mentor
+ 
 const createCourse = async (req, res) => {
     const { title, description, image, initialStudentEmail } = req.body;
 
@@ -32,25 +27,19 @@ const createCourse = async (req, res) => {
     res.status(201).json(createdCourse);
 };
 
-// @desc    Get mentor courses
-// @route   GET /api/courses/my
-// @access  Private/Mentor
+ 
 const getMyCourses = async (req, res) => {
     const courses = await Course.find({ mentor: req.user._id });
     res.json(courses);
 };
 
-// @desc    Get all courses (Admin)
-// @route   GET /api/courses
-// @access  Private/Admin
+ 
+ 
 const getAllCourses = async (req, res) => {
     const courses = await Course.find({}).populate('mentor', 'name email');
     res.json(courses);
 };
-
-// @desc    Update course
-// @route   PUT /api/courses/:id
-// @access  Private/Mentor/Admin
+ 
 const updateCourse = async (req, res) => {
     const course = await Course.findById(req.params.id);
 
@@ -69,9 +58,7 @@ const updateCourse = async (req, res) => {
     }
 };
 
-// @desc    Delete course
-// @route   DELETE /api/courses/:id
-// @access  Private/Mentor/Admin
+ 
 const deleteCourse = async (req, res) => {
     const course = await Course.findById(req.params.id);
 
@@ -88,9 +75,7 @@ const deleteCourse = async (req, res) => {
     }
 };
 
-// @desc    Assign course to student
-// @route   POST /api/courses/:id/assign
-// @access  Private/Mentor
+ 
 const assignCourse = async (req, res) => {
     const { email } = req.body;
     const course = await Course.findById(req.params.id);
@@ -117,13 +102,10 @@ const assignCourse = async (req, res) => {
     }
 };
 
-// @desc    Add chapter to course
-// @route   POST /api/courses/:id/chapters
-// @access  Private/Mentor
+ 
+ 
 const addChapter = async (req, res) => {
-    // ... existing addChapter logic ...
-    // (Wait, I need to make sure I don't accidentally cut off simple replacements. I'll use target content carefully)
-    // Actually, I can just replace the specific function blocks.
+     
     const { title, description, videoUrl, sequenceOrder } = req.body;
     const course = await Course.findById(req.params.id);
 
@@ -146,10 +128,7 @@ const addChapter = async (req, res) => {
         res.status(404).json({ message: 'Course not found' });
     }
 };
-
-// @desc    Get course chapters
-// @route   GET /api/courses/:id/chapters
-// @access  Private/Mentor, Private/Student (Assigned)
+ 
 const getChapters = async (req, res) => {
     const course = await Course.findById(req.params.id);
 
@@ -167,9 +146,7 @@ const getChapters = async (req, res) => {
     res.json(chapters);
 };
 
-// @desc    Update chapter
-// @route   PUT /api/courses/:id/chapters/:chapterId
-// @access  Private/Mentor
+ 
 const updateChapter = async (req, res) => {
     const { title, description, videoUrl, sequenceOrder } = req.body;
     const course = await Course.findById(req.params.id);

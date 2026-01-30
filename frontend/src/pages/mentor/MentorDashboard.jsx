@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useAuth } from '../../context/AuthContext';
 import CreateCourseModal from '../../components/mentor/CreateCourseModal';
 import { MentorStats, CourseGrid } from '../../components/mentor/MentorDashboardComponents';
+import MentorLayout from '../../components/mentor/MentorLayout';
 
 const MentorDashboard = () => {
     const [courses, setCourses] = useState([]);
@@ -56,31 +57,18 @@ const MentorDashboard = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50">
-            {/* Top Bar */}
-            <div className="bg-white shadow-sm border-b border-gray-200">
-                <div className="container mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <div className="flex items-center gap-3">
-                        <div className="bg-indigo-600 p-2 rounded-lg">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                            </svg>
-                        </div>
-                        <h1 className="text-2xl font-bold text-gray-800 tracking-tight">Mentor<span className="text-indigo-600">Studio</span></h1>
-                    </div>
-                </div>
-            </div>
-
-            <main className="container mx-auto px-6 py-8">
-                {/* Stats & Actions */}
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+        <MentorLayout>
+            <div className="space-y-8">
+                {/* Hero / Welcome Section */}
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
-                        <h2 className="text-3xl font-bold text-gray-800">Welcome back, Mentor {user?.name ? user.name.split(' ')[0] : ''}!</h2>
-                        <p className="text-gray-500 mt-1">Here's what's happening with your courses.</p>
+                        <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Dashboard</h1>
+                        <p className="text-gray-500 mt-1">Welcome back, {user?.name?.split(" ")[0] || "Mentor"}. Here's your daily overview.</p>
                     </div>
                     <button
+                        id="create-course-btn"
                         onClick={() => setIsModalOpen(true)}
-                        className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 shadow-lg hover:shadow-xl transition-all flex items-center gap-2 transform hover:-translate-y-0.5"
+                        className="bg-indigo-600 text-white px-5 py-2.5 rounded-lg hover:bg-indigo-700 shadow-md hover:shadow-lg transition-all flex items-center gap-2 font-medium"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
@@ -89,21 +77,31 @@ const MentorDashboard = () => {
                     </button>
                 </div>
 
+                {/* Stats Grid */}
                 <MentorStats courses={courses} />
 
-                <div className="mb-6 flex justify-between items-center">
-                    <h3 className="text-xl font-bold text-gray-800">Your Course Library</h3>
+                {/* Content Section */}
+                <div>
+                    <div className="flex items-center justify-between mb-6">
+                        <h2 className="text-xl font-bold text-gray-800">Your Courses</h2>
+                        <div className="flex items-center gap-2">
+                            <span className="text-sm text-gray-500">Sort by:</span>
+                            <select className="text-sm border-none bg-transparent font-medium text-gray-700 focus:ring-0 cursor-pointer">
+                                <option>Recent</option>
+                                <option>Popular</option>
+                            </select>
+                        </div>
+                    </div>
+                    <CourseGrid courses={courses} deleteCourse={deleteCourse} />
                 </div>
-
-                <CourseGrid courses={courses} deleteCourse={deleteCourse} />
-            </main>
+            </div>
 
             <CreateCourseModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 onCreate={handleCreateCourse}
             />
-        </div>
+        </MentorLayout>
     );
 };
 

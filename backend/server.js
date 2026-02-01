@@ -11,7 +11,11 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({
-    origin: process.env.CLIENT_URL ? process.env.CLIENT_URL.replace(/\/$/, '') : 'http://localhost:5173',
+    origin: ["https://tdd-intersnhip-learning-platform-wg.vercel.app",
+        "https://tdd-intersnhip-learning-pla-git-e3ec5a-abhaytiwari321s-projects.vercel.app",
+        "https://tdd-intersnhip-learning-platform-wg9o-olixhur6m.vercel.app",
+        "http://localhost:5173"
+    ],
     credentials: true
 }));
 

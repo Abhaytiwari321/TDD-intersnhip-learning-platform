@@ -24,7 +24,8 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const login = async (email, password) => {
-        const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, { email, password });
+        const { data } = await axios.post(`VITE_API_URL=https://tdd-intersnhip-learning-platform-9prf.onrender.com
+/api/auth/login`, { email, password });
         localStorage.setItem('token', data.token);
         const decoded = jwtDecode(data.token);
         setUser({ ...decoded, token: data.token });
@@ -32,7 +33,8 @@ export const AuthProvider = ({ children }) => {
     };
 
     const register = async (name, email, password, role) => {
-        const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/register`, { name, email, password, role });
+        const { data } = await axios.post(`VITE_API_URL=https://tdd-intersnhip-learning-platform-9prf.onrender.com
+/api/auth/register`, { name, email, password, role });
 
         if (data.token) {
             localStorage.setItem('token', data.token);

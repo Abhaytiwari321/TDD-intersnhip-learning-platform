@@ -24,7 +24,7 @@ const AdminDashboard = () => {
 
     const fetchAnalytics = async () => {
         try {
-            const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/analytics`, {
+            const { data } = await axios.get(`https://tdd-intersnhip-learning-platform-9prf.onrender.com/api/users/analytics`, {
                 headers: { Authorization: `Bearer ${user.token}` },
             });
             setAnalytics(data);
@@ -35,7 +35,7 @@ const AdminDashboard = () => {
 
     const fetchAllCourses = async () => {
         try {
-            const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/courses`, {
+            const { data } = await axios.get(`https://tdd-intersnhip-learning-platform-9prf.onrender.com/api/courses`, {
                 headers: { Authorization: `Bearer ${user.token}` },
             });
             setCourses(data);
@@ -46,7 +46,7 @@ const AdminDashboard = () => {
 
     const fetchUsers = async () => {
         try {
-            const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/users`, {
+            const { data } = await axios.get(`https://tdd-intersnhip-learning-platform-9prf.onrender.com/api/users`, {
                 headers: { Authorization: `Bearer ${user.token}` },
             });
             setUsers(data);
@@ -57,7 +57,7 @@ const AdminDashboard = () => {
 
     const approveMentor = async (id) => {
         try {
-            await axios.put(`${import.meta.env.VITE_API_URL}/api/users/${id}/approve-mentor`, {}, {
+            await axios.put(`https://tdd-intersnhip-learning-platform-9prf.onrender.com/api/users/${id}/approve-mentor`, {}, {
                 headers: { Authorization: `Bearer ${user.token}` },
             });
             // Refresh data
@@ -71,7 +71,7 @@ const AdminDashboard = () => {
     const deleteUser = async (id) => {
         if (!window.confirm('Are you sure?')) return;
         try {
-            await axios.delete(`${import.meta.env.VITE_API_URL}/api/users/${id}`, {
+            await axios.delete(`https://tdd-intersnhip-learning-platform-9prf.onrender.com/api/users/${id}`, {
                 headers: { Authorization: `Bearer ${user.token}` },
             });
             fetchUsers();

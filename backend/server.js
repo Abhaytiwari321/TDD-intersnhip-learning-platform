@@ -14,7 +14,9 @@ app.use(cors({
     origin: ["https://tdd-intersnhip-learning-platform-wg.vercel.app",
         "https://tdd-intersnhip-learning-pla-git-e3ec5a-abhaytiwari321s-projects.vercel.app",
         "https://tdd-intersnhip-learning-platform-wg9o-olixhur6m.vercel.app",
-        "http://localhost:5173"
+        "http://localhost:5173",
+        "tdd-intersnhip-learning-platform-1d17-8t42wzox5.vercel.app",
+        "tdd-intersnhip-learning-platform-1d.vercel.app"
     ],
     credentials: true
 }));
